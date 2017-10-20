@@ -25,13 +25,6 @@ function fetchEtablissements(map) {
           ];
         });
 
-        etablissements.map(x => {
-          new google.maps.Marker({
-            position: x[0],
-            map: map
-          });
-        });
-
         let ul = document.getElementById("list-etablissements");
 
         etablissements.map(x => {
@@ -55,7 +48,23 @@ function fetchingResidences(map) {
   ).then(response => {
     if (response.ok) {
       response.json().then(json => {
-        console.log(json);
+        let residences = json.records.map(function(x) {
+          return [
+            {
+              lat: x.geometry.coordinates[1],
+              lng: x.geometry.coordinates[0]
+            },
+            x.fields.title
+          ];
+        });
+
+        residences.map(x => {
+          new google.maps.Marker({
+            position: x[0],
+            map: map
+          });
+        });
+        console.log(residences);
       });
     } else {
       console.log(
