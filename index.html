@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <h1>Open data Etudiants </h1>
+    <div id="map"></div>
+    <script>
+    function initMap() {
+  fetch(
+    "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-implantations_etablissements_d_enseignement_superieur_publics&sort=siege_lib&refine.localisation=Pays+de+la+Loire%3ENantes&refine.siege_lib=Université+de+Nantes"
+  ).then(function(response) {
+    if (response.ok) {
+      response.json().then(function(json) {
+        console.log(json);
+      });
+    } else {
+      console.log("Erreur !");
+    }
+
+    //return response.json();
+  });
+
+  var nantes = { lat: 47.217, lng: -1.553 };
+  var map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 13,
+    center: nantes
+  });
+  var marker = new google.maps.Marker({
+    position: nantes,
+    map: map
+  });
+}
+</script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL8XHJ9PpCIgZ2rjhJvgxirq7NodcbTG8&callback=initMap">
+    </script>
+  </body>
+</html>
