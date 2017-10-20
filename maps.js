@@ -27,7 +27,12 @@ function initMap() {
           });
         });
 
+        let ul = document.getElementById("list-etablissements");
         etablissements.map(function(x) {
+          let li = document.createElement("li");
+          li.appendChild(document.createTextNode(x[1]));
+          li.classList.add("list-group-item");
+          ul.appendChild(li);
           console.log(x[1]);
         });
       });
