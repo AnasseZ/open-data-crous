@@ -2,37 +2,28 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="maps.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
     <h1>Open data Etudiants </h1>
-    <div id="map"></div>
-    <script>
-    function initMap() {
-  fetch(
-    "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-implantations_etablissements_d_enseignement_superieur_publics&sort=siege_lib&refine.localisation=Pays+de+la+Loire%3ENantes&refine.siege_lib=Université+de+Nantes"
-  ).then(function(response) {
-    if (response.ok) {
-      response.json().then(function(json) {
-        console.log(json);
-      });
-    } else {
-      console.log("Erreur !");
-    }
+    <br /><br /><br /><br />
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4">
+          <h2>Liste des établissements</h2>
+          <ul class="list-group">
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+          </ul>
+        </div>
+        <div id="map" class="col-sm-8"></div>
+      </div>
+    </div>
 
-    //return response.json();
-  });
-
-  var nantes = { lat: 47.217, lng: -1.553 };
-  var map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 13,
-    center: nantes
-  });
-  var marker = new google.maps.Marker({
-    position: nantes,
-    map: map
-  });
-}
-</script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL8XHJ9PpCIgZ2rjhJvgxirq7NodcbTG8&callback=initMap">
     </script>
