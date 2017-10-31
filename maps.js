@@ -6,7 +6,6 @@ function initApp() {
   });
 
   fetchEtablissements(map);
-  //fetchingResidences(map);
 }
 
 function fetchingResidencesByCity(map, ville) {
@@ -17,25 +16,18 @@ function fetchingResidencesByCity(map, ville) {
     .then(response => {
       if (response.ok) {
         response.json().then(json => {
-          let residences = json.records.map(function(x) {
+          let residences = json.records.map(function(residence) {
             return [
               {
-                lat: x.geometry.coordinates[1],
-                lng: x.geometry.coordinates[0]
+                lat: residence.geometry.coordinates[1],
+                lng: residence.geometry.coordinates[0]
               },
-              x.fields.title
+              residence.fields.title
             ];
           });
-          residences.map(x => {
-            new google.maps.Marker({
-              position: x[0],
-              map: map
-            });
-          });
-          console.log(residences);
-          //  return residences;
+
+          addMarkers(residences, map);
         });
-        //console.log(response);
       } else {
         console.log(
           "Erreur, nous n'avons pas réussis à obtenir les résidences CROUS."
@@ -47,43 +39,33 @@ function fetchingResidencesByCity(map, ville) {
     });
 }
 
+function addMarkers(residences, map) {
+  residences.map(residence => {
+    new google.maps.Marker({
+      position: residence[0],
+      map: map
+    });
+  });
+}
+
 function fetchEtablissements(map) {
   fetch(
     "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-implantations_etablissements_d_enseignement_superieur_publics&rows=100&sort=siege_lib&refine.localisation=Pays+de+la+Loire%3ENantes&refine.siege_lib=Université+de+Nantes"
   ).then(function(response) {
     if (response.ok) {
       response.json().then(function(json) {
-        let etablissements = json.records.map(function(x) {
+        let etablissements = json.records.map(function(etablissement) {
           return [
             {
-              lat: x.geometry.coordinates[1],
-              lng: x.geometry.coordinates[0]
+              lat: etablissement.geometry.coordinates[1],
+              lng: etablissement.geometry.coordinates[0]
             },
-            x.fields.implantation_lib,
-            x.fields.com_nom
+            etablissement.fields.implantation_lib,
+            etablissement.fields.com_nom
           ];
         });
-        //console.log(etablissements);
 
-        let ul = document.getElementById("list-etablissements");
-
-        etablissements.map(x => {
-          let a = document.createElement("a");
-          a.onclick = () => {
-            //console.log(x[2]);
-            let val = x[2]
-              .toUpperCase()
-              .replace("-", "+")
-              .replace(" ", "+");
-            console.log(val);
-            fetchingResidencesByCity(map, val);
-          };
-          let li = document.createElement("li");
-          li.appendChild(document.createTextNode(x[1]));
-          li.classList.add("list-group-item");
-          a.appendChild(li);
-          ul.appendChild(a);
-        });
+        listCreation(etablissements, map);
       });
     } else {
       console.log(
@@ -91,4 +73,32 @@ function fetchEtablissements(map) {
       );
     }
   });
+}
+
+function listCreation(etablissements, map) {
+  let ul = document.getElementById("list-etablissements");
+
+  etablissements.map(etablissement => {
+    let a = document.createElement("a");
+    a.onclick = () => {
+      fetchingResidencesByCity(map, transformCityName(etablissement[2]));
+    };
+
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(etablissement[1]));
+    li.classList.add("list-group-item");
+
+    a.appendChild(li);
+    ul.appendChild(a);
+  });
+}
+
+function transformCityName(city) {
+  if (city === "La Roche-sur-Yon") {
+    return "LA+ROCHE+SUR+YON";
+  } else if (city === "Coulaines") {
+    return "LE+MANS";
+  }
+
+  return city.toUpperCase().replace(" ", "+");
 }
