@@ -8,7 +8,7 @@ function initApp() {
   fetchEtablissements(map);
 }
 
-function fetchingResidencesByCity(map, ville) {
+function fetchingResidencesByCity(map, etablissement, ville) {
   fetch(
     "https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr_crous_logement_france_entiere&rows=100&facet=zone&refine.zone=" +
       ville
@@ -27,6 +27,7 @@ function fetchingResidencesByCity(map, ville) {
           });
 
           addMarkers(residences, map);
+          distanceCalculation(etablissement, residences);
         });
       } else {
         console.log(
@@ -46,6 +47,44 @@ function addMarkers(residences, map) {
       map: map
     });
   });
+}
+
+function distanceCalculation(etablissement, residences) {
+  /* fetch(
+    "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Seattle&destinations=San+Francisco&key=AIzaSyCVGOTKDTrOiUKjvgQN1z8yRUP2aHJ0o24"
+  ).then(response => {
+    if (response.ok) {
+      response.json().then(json => {
+        console.log(json);
+      });
+    }
+  }); */
+  console.log(etablissement, residences);
+
+  let destinations = residences.map(residence => {
+    return residence[0];
+  });
+
+  let service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [etablissement[0]],
+      destinations: destinations,
+      travelMode: "DRIVING",
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    },
+    (response, status) => {
+      if (status !== "OK") {
+        alert("Error was: " + status);
+      } else {
+        response.rows[0].elements.map(calcultedDistance => {
+          console.log(calcultedDistance.distance.text);
+        });
+      }
+    }
+  );
 }
 
 function fetchEtablissements(map) {
@@ -81,7 +120,11 @@ function listCreation(etablissements, map) {
   etablissements.map(etablissement => {
     let a = document.createElement("a");
     a.onclick = () => {
-      fetchingResidencesByCity(map, transformCityName(etablissement[2]));
+      fetchingResidencesByCity(
+        map,
+        etablissement,
+        transformCityName(etablissement[2])
+      );
     };
 
     let li = document.createElement("li");
