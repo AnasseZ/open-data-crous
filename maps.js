@@ -29,6 +29,7 @@ function fetchingResidencesByCity(map, etablissement, ville) {
           });
 
           addMarkers(residences, map);
+          recenterMap(map, etablissement[0]);
           distanceCalculation(etablissement, residences);
         });
       } else {
@@ -61,6 +62,10 @@ function clearMarkers(markers) {
   });
 
   markers = [];
+}
+
+function recenterMap(map, position) {
+  map.setCenter(position);
 }
 
 function distanceCalculation(etablissement, residences) {
