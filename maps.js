@@ -50,17 +50,6 @@ function addMarkers(residences, map) {
 }
 
 function distanceCalculation(etablissement, residences) {
-  /* fetch(
-    "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Seattle&destinations=San+Francisco&key=AIzaSyCVGOTKDTrOiUKjvgQN1z8yRUP2aHJ0o24"
-  ).then(response => {
-    if (response.ok) {
-      response.json().then(json => {
-        console.log(json);
-      });
-    }
-  }); */
-  console.log(etablissement, residences);
-
   let destinations = residences.map(residence => {
     return residence[0];
   });
@@ -79,12 +68,36 @@ function distanceCalculation(etablissement, residences) {
       if (status !== "OK") {
         alert("Error was: " + status);
       } else {
-        response.rows[0].elements.map(calcultedDistance => {
-          console.log(calcultedDistance.distance.text);
+        console.log(response.rows[0].elements);
+        let results = response.rows[0].elements.map(calcultedDistance => {
+          return [
+            calcultedDistance.distance.text,
+            calcultedDistance.duration.text
+          ];
         });
+
+        showResult(results);
       }
     }
   );
+}
+
+function showResult(results) {
+  let resultDiv = document.getElementById("result");
+  resultDiv.innerHTML = "";
+
+  console.log(results.sort());
+
+  results.sort().map(result => {
+    let p = document.createElement("p");
+    p.innerHTML =
+      "Cette résidence est à " +
+      result[1] +
+      " et se situe à " +
+      result[0] +
+      " .";
+    resultDiv.appendChild(p);
+  });
 }
 
 function fetchEtablissements(map) {
