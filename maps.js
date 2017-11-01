@@ -1,3 +1,5 @@
+let markers = [];
+
 function initApp() {
   let nantes = { lat: 47.217, lng: -1.553 };
   let map = new google.maps.Map(document.getElementById("map"), {
@@ -41,12 +43,24 @@ function fetchingResidencesByCity(map, etablissement, ville) {
 }
 
 function addMarkers(residences, map) {
-  residences.map(residence => {
-    new google.maps.Marker({
+  clearMarkers(markers);
+
+  markers = residences.map(residence => {
+    return new google.maps.Marker({
       position: residence[0],
       map: map
     });
   });
+
+  console.log(markers);
+}
+
+function clearMarkers(markers) {
+  markers.map(marker => {
+    marker.setMap(null);
+  });
+
+  markers = [];
 }
 
 function distanceCalculation(etablissement, residences) {
@@ -68,7 +82,7 @@ function distanceCalculation(etablissement, residences) {
       if (status !== "OK") {
         alert("Error was: " + status);
       } else {
-        console.log(response.rows[0].elements);
+        //console.log(response.rows[0].elements);
         let results = response.rows[0].elements.map(calcultedDistance => {
           return [
             calcultedDistance.distance.text,
@@ -86,7 +100,7 @@ function showResult(results) {
   let resultDiv = document.getElementById("result");
   resultDiv.innerHTML = "";
 
-  console.log(results.sort());
+  //console.log(results.sort());
 
   results.sort().map(result => {
     let p = document.createElement("p");
