@@ -28,7 +28,7 @@ function fetchingResidencesByCity(map, etablissement, ville) {
             ];
           });
 
-          addMarkers(residences, map);
+          addMarkers(etablissement, residences, map);
           recenterMap(map, etablissement[0]);
           distanceCalculation(etablissement, residences);
         });
@@ -43,7 +43,7 @@ function fetchingResidencesByCity(map, etablissement, ville) {
     });
 }
 
-function addMarkers(residences, map) {
+function addMarkers(etablissement, residences, map) {
   clearMarkers(markers);
 
   markers = residences.map(residence => {
@@ -53,7 +53,16 @@ function addMarkers(residences, map) {
     });
   });
 
-  console.log(markers);
+  let icon = "blue_MarkerE.png";
+
+  let etablissementMarker = new google.maps.Marker({
+    position: etablissement[0],
+    map: map,
+    title: etablissement[1],
+    icon: icon
+  });
+
+  markers.push(etablissementMarker);
 }
 
 function clearMarkers(markers) {
@@ -87,7 +96,6 @@ function distanceCalculation(etablissement, residences) {
       if (status !== "OK") {
         alert("Error was: " + status);
       } else {
-        //console.log(response.rows[0].elements);
         let results = response.rows[0].elements.map(calcultedDistance => {
           return [
             calcultedDistance.distance.text,
@@ -104,8 +112,6 @@ function distanceCalculation(etablissement, residences) {
 function showResult(results) {
   let resultDiv = document.getElementById("result");
   resultDiv.innerHTML = "";
-
-  //console.log(results.sort());
 
   results.sort().map(result => {
     let p = document.createElement("p");
