@@ -24,7 +24,9 @@ function fetchingResidencesByCity(map, etablissement, ville) {
                 lat: residence.geometry.coordinates[1],
                 lng: residence.geometry.coordinates[0]
               },
-              residence.fields.title
+              residence.fields.title,
+              residence.fields.contact,
+              residence.fields.services
             ];
           });
 
@@ -47,10 +49,20 @@ function addMarkers(etablissement, residences, map) {
   clearMarkers(markers);
 
   markers = residences.map(residence => {
-    return new google.maps.Marker({
+    let infowindow = new google.maps.InfoWindow({
+      content: "<b>" + residence[2] + "</b><br> Services : " + residence[3]
+    });
+
+    let marker = new google.maps.Marker({
       position: residence[0],
       map: map
     });
+
+    marker.addListener("click", function() {
+      infowindow.open(map, marker);
+    });
+
+    return marker;
   });
 
   let icon = "blue_MarkerE.png";
@@ -96,13 +108,13 @@ function distanceCalculation(etablissement, residences) {
       if (status !== "OK") {
         alert("Error was: " + status);
       } else {
-        let results = response.rows[0].elements.map(calcultedDistance => {
+        let results = response.rows[0].elements.map((calcultedDistance, i) => {
           return [
             calcultedDistance.distance.text,
-            calcultedDistance.duration.text
+            calcultedDistance.duration.text,
+            residences[i]
           ];
         });
-
         showResult(results);
       }
     }
@@ -112,11 +124,11 @@ function distanceCalculation(etablissement, residences) {
 function showResult(results) {
   let resultDiv = document.getElementById("result");
   resultDiv.innerHTML = "";
-
   results.sort().map(result => {
     let p = document.createElement("p");
     p.innerHTML =
-      "Cette résidence est à " +
+      result[2][1] +
+      " est à " +
       result[1] +
       " et se situe à " +
       result[0] +
