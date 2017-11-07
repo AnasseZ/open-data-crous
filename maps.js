@@ -142,7 +142,8 @@ function fetchEtablissements(map) {
           ];
         });
 
-        listCreation(etablissements, map);
+        handleInput(etablissements, map);
+        //listCreation(etablissements, map);
       });
     } else {
       console.log(
@@ -182,4 +183,32 @@ function transformCityName(city) {
   }
 
   return city.toUpperCase().replace(" ", "+");
+}
+
+function handleInput(etablissements, map) {
+  let input = document.getElementById("myinput");
+
+  let list = etablissements.map(etablissement => {
+    return etablissement[1];
+  });
+
+  new Awesomplete(input, {
+    list: list
+  });
+
+  let button = document.getElementById("residencesButton");
+  button.addEventListener("click", () => {
+    let etablissementChoisis;
+    for (var i = 0; i < etablissements.length; i++) {
+      if (input.value === etablissements[i][1]) {
+        etablissementChoisis = etablissements[i];
+      }
+    }
+
+    fetchingResidencesByCity(
+      map,
+      etablissementChoisis,
+      transformCityName(etablissementChoisis[2])
+    );
+  });
 }

@@ -2,6 +2,8 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" href="./awesomplete-gh-pages/awesomplete.css" />
+    <script src="./awesomplete-gh-pages/awesomplete.js" async></script>
     <script src="maps.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -12,8 +14,23 @@
     <br /><br /><br /><br />
     <div class="container-fluid">
       <div class="row">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-4">
+          <h2>Entrez votre établissement</h2>
+
+          <input class="awesomplete" id="myinput" />
+          <button type="button" class="btn btn-success" id="residencesButton">Chercher</button>
+        </div>
+        <div class="col-sm-4" >
+
+        </div>
+      </div>
+      <br />
+      <div class="row">
         <div class="col-sm-5">
-          <h2>Liste des établissements</h2>
+        <!--  <h2>Liste des établissements</h2> -->
           <div class="pre-scrollable">
             <ul class="list-group" id="list-etablissements">
             </ul>
