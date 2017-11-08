@@ -50,7 +50,12 @@ function addMarkers(etablissement, residences, map) {
 
   markers = residences.map(residence => {
     let infowindow = new google.maps.InfoWindow({
-      content: "<b>" + residence[2] + "</b><br> Services : " + residence[3]
+      content:
+        '<div id="blackDiv"><b>' +
+        residence[2] +
+        "</b><br> Services : " +
+        residence[3] +
+        "</div>"
     });
 
     let marker = new google.maps.Marker({

@@ -4,5 +4,9 @@
 
 #myinput {
   width: 350px;
-  color: red;
+  color: black;
+}
+
+#blackDiv {
+  color: black !important;
 }
