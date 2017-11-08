@@ -35,7 +35,7 @@ Ces données sont issues du jeu de données open data mis à disposition par le 
  L'utilisateur entre le nom de son établissement et se voit proposer une liste trié des résidences CROUS les plus proches de son établissement d'origine. 
  Les résidences sont marquées sur une Google map via des marqueurs cliquables fournissant des informations supplémentaires sur la résidence comme son adresse ou bien les services proposés comme le Wi-fi, parking privée etc...
  
- ## Technologies utilisées
+## Technologies utilisées
  
  Nous utilisons donc l'API proposé par le gouvernement pour obtenir les données qu'on utilise ensuite via l'API Google maps afin de les exploiter et transmettre l'information.
 
