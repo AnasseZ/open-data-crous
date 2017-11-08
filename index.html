@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" href="./awesomplete-gh-pages/awesomplete.css" />
@@ -8,39 +8,106 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Open Data Crous</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.min.css" rel="stylesheet">
   </head>
-  <body>
-    <h1>Open data Etudiants </h1>
+
+  <body id="page-top">
+    <header class="masthead">
+      <div class="header-content">
+        <div class="header-content-inner">
+          <h1 id="homeHeading">Trouvez un logement Crous près de vous</h1>
+          <hr>
+          <p>Entrez le nom de votre établissement.</p>
+          <input class="awesomplete" id="myinput" />
+          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about" id="residencesButton">Chercher</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-primary" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading text-white">Résidences CROUS liés à votre recherche</h2>
+            <hr class="light">
+
+          </div>
+        </div>
+      </div>
+
     <br /><br /><br /><br />
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-4">
-
-        </div>
-        <div class="col-sm-4">
-          <h2>Entrez votre établissement</h2>
-
-          <input class="awesomplete" id="myinput" />
-          <button type="button" class="btn btn-success" id="residencesButton">Chercher</button>
-        </div>
-        <div class="col-sm-4" >
-
-        </div>
-      </div>
-      <br />
-      <hr />
-      <div class="row">
         <div class="col-sm-5">
-        <!--  <h2>Liste des établissements</h2> -->
+          <h2>Liste des résidences</h2>
+          <br /><br />
           <div id ="result"></div>
         </div>
         <div class="col-sm-7">
           <div id="map"></div>
+          <hr />
         </div>
       </div>
     </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading">Données</h2>
+            <hr class="primary">
+            <p>Les données utilisées sont sous Licence ETALAB et sont produites par le Ministère de l'éducation nationale et du CNOUS.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto text-center">
+            <i class="fa fa-table fa-3x sr-contact"></i>
+            <p>
+              <a href="https://data.enseignementsup-recherche.gouv.fr/pages/home/">Provenance des données</a>
+            </p>
+          </div>
+          <div class="col-lg-4 mr-auto text-center">
+            <i class="fa fa-gitlab fa-3x sr-contact"></i>
+            <p>
+              <a href="https://gitlab.com/Anasse/open-data-etudiants-crous">Code source </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL8XHJ9PpCIgZ2rjhJvgxirq7NodcbTG8&callback=initApp">
+    </script>
   </body>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCL8XHJ9PpCIgZ2rjhJvgxirq7NodcbTG8&callback=initApp">
-  </script>
 </html>
