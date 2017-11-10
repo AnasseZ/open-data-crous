@@ -138,6 +138,10 @@ function showResult(results) {
       " et se situe à " +
       result[0] +
       " .";
+
+    p.onclick = () => {
+      alert("test");
+    };
     resultDiv.appendChild(p);
   });
 }
