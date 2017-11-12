@@ -1,4 +1,5 @@
 let markers = [];
+let lastMarker = null;
 
 function initApp() {
   let nantes = { lat: 47.217, lng: -1.553 };
@@ -60,7 +61,8 @@ function addMarkers(etablissement, residences, map) {
 
     let marker = new google.maps.Marker({
       position: residence[0],
-      map: map
+      map: map,
+      icon: "red_MarkerR.png"
     });
 
     marker.addListener("click", function() {
@@ -117,7 +119,8 @@ function distanceCalculation(etablissement, residences) {
           return [
             calcultedDistance.distance.text,
             calcultedDistance.duration.text,
-            residences[i]
+            residences[i],
+            markers[i]
           ];
         });
         showResult(results);
@@ -140,8 +143,16 @@ function showResult(results) {
       " .";
 
     p.onclick = () => {
-      alert("test");
+      let marker = result[3];
+
+      if (lastMarker) {
+        lastMarker.setIcon("red_MarkerR.png");
+      }
+
+      marker.setIcon("yellow_MarkerR.png");
+      lastMarker = marker;
     };
+
     resultDiv.appendChild(p);
   });
 }
