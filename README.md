@@ -1,6 +1,6 @@
 #  Open Data Crous
 
-Application web développée par le Groupe **Zougarh Anasse - Boubacar Mentache**  dans le cadre du module de Données sur le web.
+Application web développée par le Groupe **Zougarh Anasse - Boubaker Mentache**  dans le cadre du module de Données sur le web.
 
 ## Rôle de l'application
 
